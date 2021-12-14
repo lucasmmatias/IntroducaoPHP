@@ -65,7 +65,7 @@
                         ?>
                     </p>
                     <!-- Formulário -->
-                    <form class="text-left" action="enviar.php" method="POST">
+                    <form class="text-left" action="enviar.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nome">Nome Completo:</label>
                             <input name="nome" type="text" class="form-control" id="nome" placeholder="Dino da Silva Sauro">
@@ -77,6 +77,10 @@
                         <div class="form-group">
                             <label for="email">E-mail</label> 
                             <input name="email" type="email" class="form-control" id="email" placeholder="dino.dssauro@sp.senac.br">
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Foto de usuário:</label>
+                            <input type="file" name="foto" class="form-control-file" id="foto">
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">

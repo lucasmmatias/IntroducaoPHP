@@ -3,10 +3,9 @@
 date_default_timezone_set('America/Sao_Paulo');
 
 // Upload de Arquivos:
-// 20211214160617_XXXX.jpg
 
 // Valor aleatório: rand(inicial,final);
-
+// 20211214160617_XXXX
 $novoNome = date('YmdHis')."_".rand(1000,9999);
 echo $novoNome;
 
