@@ -7,7 +7,22 @@ date_default_timezone_set('America/Sao_Paulo');
 // Valor aleatório: rand(inicial,final);
 // 20211214160617_XXXX
 $novoNome = date('YmdHis')."_".rand(1000,9999);
-echo $novoNome;
+// Extrair a extensão do arquivo enviado:
+$ext = substr($_FILES['foto']['name'],-4);
+// Definir o novo nome do arquivo com a extensão:
+$novoNome = $novoNome . $ext;
+
+// Mover e verificar se deu certo:
+if(move_uploaded_file($_FILES['foto']['tmp_name'], "fotos/".$novoNome)){
+    echo "Show!<br>";
+    echo "<img src='fotos/{$novoNome}' />";
+}
+else{
+    echo "Não deu certo :(<br>";
+}
+
+
+//print_r($_FILES);
 
 
 
