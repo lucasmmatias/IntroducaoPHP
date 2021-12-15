@@ -7,4 +7,6 @@ if(!isset($_SESSION['user']) && !isset($_SESSION['senha'])){
 }
 
 echo "Olá ". $_SESSION['user'];
+// Link para o botão sair:
+echo "<br><a href='sair.php'>SAIR</a>";
 ?>
