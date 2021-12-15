@@ -13,7 +13,9 @@
     <h1>Último produto visualizado:</h1>
     <br>
     <?php
-        echo $_COOKIE["produto"];
+        if(isset($_COOKIE['produto'])){
+            echo $_COOKIE["produto"];
+        }
     ?>
     <br>
 </body>
