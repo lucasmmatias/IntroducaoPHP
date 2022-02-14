@@ -129,8 +129,9 @@
 <body>
     <div class="login-page">
         <div class="form">
-            <form class="register-form" action="registrar.php">
+            <form class="register-form" action="registrar.php" method="POST">
                 <input type="text" name="cadNome" placeholder="Nome Completo" />
+                <input type="text" name="cadUsername" placeholder="Username" />
                 <input type="text" name="cadEmail" placeholder="E-mail" />
                 <input type="password" name="cadSenha1" placeholder="Senha" />
                 <input type="password" name="cadSenha2" placeholder="Confirmar Senha" />
