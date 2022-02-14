@@ -26,7 +26,10 @@ if(!isset($_POST['username']) && !isset($_POST['password'])){
 
     // Verificar se a senha está correta:
         if($_POST['password'] == $data['senha']){
-            echo "Acertô, mizeravi.";
+            // Criar sessão com as informações de login:
+            $_SESSION['infosusuario'] = $data;
+            // Redirecionar o boneco para a página do sistema:
+            header('Location: sistema/index.php');
         }else{
             echo "Errou, mizeravi.";
         }
