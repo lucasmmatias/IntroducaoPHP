@@ -137,7 +137,7 @@
                 <button type="submit">Cadastrar</button>
                 <p class="message">Já possui conta? <a href="#">Entrar</a></p>
             </form>
-            <form class="login-form" action="verificar.php">
+            <form class="login-form" action="verificar.php" method="POST">
                 <input type="text" placeholder="E-mail" name="username" />
                 <input type="password" placeholder="Senha" name="password" />
                 <button type="submit">entrar</button>

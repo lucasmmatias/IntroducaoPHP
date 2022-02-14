@@ -14,14 +14,24 @@ if(!isset($_POST['username']) && !isset($_POST['password'])){
     // Definir o tipo de execução em caso de erro:
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // Comando que iremos executar no BD:
-    $sql = "SELECT senha,nomeCompleto FROM usuarios WHERE username = ?";
+    $sql = "SELECT * FROM usuarios WHERE username = ?";
     $q = $pdo->prepare($sql);
     $q->execute(array($_POST['username']));
     // Resultado do BD:
     $data = $q->fetch(PDO::FETCH_ASSOC);
     Banco::desconectar();
+
+    // Sugestão: exibir os resultados vindos do banco:
+    // print_r($data);
+
+    // Verificar se a senha está correta:
+        if($_POST['password'] == $data['senha']){
+            echo "Acertô, mizeravi.";
+        }else{
+            echo "Errou, mizeravi.";
+        }
+    
 }
-echo "Oi, sua senha é ".$data["senha"]." e seu nome é: ".$data["nomeCompleto"];
 
 
 // // Verificar a senha:
