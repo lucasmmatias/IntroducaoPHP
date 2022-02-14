@@ -23,9 +23,11 @@ if(!isset($_POST['username']) && !isset($_POST['password'])){
 
     // Sugestão: exibir os resultados vindos do banco:
     // print_r($data);
-
-    // Verificar se a senha está correta:
-        if($_POST['password'] == $data['senha']){
+    
+    //Obter o hash da senha digitada:
+    $hashdasenha = hash("SHA256", $_POST['password']);
+    // Verificar se a senha está correta comparando seu HASH com o do BD:
+        if($hashdasenha == $data['senha']){
             // Criar sessão com as informações de login:
             $_SESSION['infosusuario'] = $data;
             // Redirecionar o boneco para a página do sistema:

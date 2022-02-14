@@ -8,12 +8,15 @@ if(!isset($_POST['cadNome']) && !isset($_POST['cadUsername']) && !isset($_POST['
     header("Location: index.php");
 }else{
     if($_POST['cadSenha1'] == $_POST['cadSenha2']){
+        // Criar o HASH da senha:
+        $hashdasenha = hash("SHA256", $_POST['cadSenha1']);
+
 
         $pdo = Banco::conectar();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO usuarios (username, senha, email, nomeCompleto) VALUES (?, ?, ?, ?)";
         $q = $pdo->prepare($sql);
-        $q->execute(array($_POST['cadUsername'], $_POST['cadSenha1'], $_POST['cadEmail'], $_POST['cadNome']));
+        $q->execute(array($_POST['cadUsername'], $hashdasenha, $_POST['cadEmail'], $_POST['cadNome']));
         Banco::desconectar();
 
         // Devolver o usuário para tela de login:
