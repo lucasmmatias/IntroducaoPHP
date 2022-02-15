@@ -6,7 +6,20 @@ if(!isset($_SESSION['infosusuario'])){
     header('Location: ../index.php');
 }
 
-//echo "Olá ".$_SESSION['infosusuario']['nomeCompleto'];
+// Importar o banco.php
+require '../db/banco.php';
+
+//Conectar com o banco:
+$pdo = Banco::conectar();
+// String com a query do banco:
+$comandoSql = 'SELECT codbarras AS CodigoDeBarras, foto, nome, preco, estoque, idCategoria AS Categoria FROM produtos ORDER BY dataCadastro DESC';
+// Atribuição do resultado da consulta no array $resultadoConsulta:
+$resultadoConsulta = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
+ 
+Banco::desconectar();
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +77,20 @@ if(!isset($_SESSION['infosusuario'])){
                 </thead>
                 <!-- Corpo (Conteúdo) da Tabela -->
                 <tbody>
-                  <!-- Aqui colocaremos os TDs com os dados vindos do BD -->
+                  <?php
+                    foreach($resultadoConsulta as $linha){
+                        echo '<tr>';
+                        echo '<td>'.$linha['CodigoDeBarras'].'</td>';
+                        echo '<td>'.$linha['foto'].'</td>';
+                        echo '<td>'.$linha['nome'].'</td>';
+                        echo '<td>'.$linha['preco'].'</td>';
+                        echo '<td>'.$linha['estoque'].'</td>';
+                        echo '<td>'.$linha['Categoria'].'</td>';
+                        echo '<td>APAGAR | EDITAR</td>';
+                        echo '</tr>';
+                    }
+
+                ?>
                 </tbody>
                 </table>
             </div>
