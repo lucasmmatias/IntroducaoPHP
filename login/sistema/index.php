@@ -112,7 +112,7 @@ Banco::desconectar();
         </button>
       </div>
       <div class="modal-body">
-            <form enctype="multipart/form-data" method="POST" action="cadastraProduto.php">
+        <form enctype="multipart/form-data" method="POST" action="cadastraProduto.php">
         <div class="form-group">
             <label for="codBarras">Código de Barras:</label>
             <input type="text" name="codBarras" class="form-control" id="codBarras" placeholder="00000" maxlength="5">
