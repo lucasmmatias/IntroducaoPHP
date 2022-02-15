@@ -86,7 +86,7 @@ Banco::desconectar();
                     foreach($resultadoConsulta as $linha){
                         echo '<tr>';
                         echo '<td>'.$linha['cb'].'</td>';
-                        echo '<td>'.$linha['foto'].'</td>';
+                        echo '<td><img class="imagem" src="'.$linha['foto'].'"/></td>';
                         echo '<td>'.$linha['nome'].'</td>';
                         echo '<td>'.$linha['preco'].'</td>';
                         echo '<td>'.$linha['estoque'].'</td>';
@@ -115,7 +115,7 @@ Banco::desconectar();
             <form enctype="multipart/form-data" method="POST" action="cadastraProduto.php">
         <div class="form-group">
             <label for="codBarras">Código de Barras:</label>
-            <input type="text" name="codBarras" class="form-control" id="codBarras" placeholder="0000000000000" maxlength="13">
+            <input type="text" name="codBarras" class="form-control" id="codBarras" placeholder="00000" maxlength="5">
         </div>
         <div class="form-group">
             <label for="nome">Nome do Produto:</label>
