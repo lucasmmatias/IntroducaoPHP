@@ -15,7 +15,12 @@ $pdo = Banco::conectar();
 $comandoSql = 'SELECT codbarras AS cb, foto, nome, preco, estoque, idCategoria AS Categoria FROM produtos ORDER BY dataCadastro DESC';
 // Atribuição do resultado da consulta no array $resultadoConsulta:
 $resultadoConsulta = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
- 
+
+// Comandos para puxar as categorias:
+$comandoSql = 'SELECT * FROM categorias ORDER BY nome';
+$resultadoCategorias = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
+//print_r($resultadoCategorias);
+
 Banco::desconectar();
 
 
@@ -127,7 +132,12 @@ Banco::desconectar();
         <div class="form-group">
             <label for="categoria">Categoria:</label>
             <select class="form-control" name="categoria" id="categoria">
- 
+                <?php
+                foreach($resultadoCategorias as $opcao){
+                    echo "<option value='".$opcao['id']."'>".$opcao['nome']."</option>";
+                }
+
+                ?>
             </select>
         </div>
         <div class="form-group">
