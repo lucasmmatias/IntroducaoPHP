@@ -1,7 +1,15 @@
 <?php
 // Pendente de validação de erros !!! 
+
 // Iniciar utilização de sessão:
 session_start();
+// Verificar se o usuário não está logado:
+if(!isset($_SESSION['infosusuario'])){
+    // Redirecionar de volta à tela de login:
+    header('Location: ../index.php');
+}
+
+// Verificar se a pessoa está logada:
 
 // Puxar o arquivo de conexão com o banco de dados:
 include('../db/banco.php');

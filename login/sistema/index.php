@@ -91,7 +91,7 @@ Banco::desconectar();
                         echo '<td>'.$linha['preco'].'</td>';
                         echo '<td>'.$linha['estoque'].'</td>';
                         echo '<td>'.$linha['Categoria'].'</td>';
-                        echo '<td><a href="apagar.php?id='.$linha['cb'].'">APAGAR</a> | EDITAR</td>';
+                        echo '<td><a href="apagar.php?id='.$linha['cb'].'">APAGAR</a> | <a href="editar.php?id='.$linha['cb'].'">EDITAR</a></td>';
                         echo '</tr>';
                     }
 
