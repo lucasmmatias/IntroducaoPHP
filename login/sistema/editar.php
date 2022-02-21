@@ -20,6 +20,12 @@ $infosProduto = $q->fetch(PDO::FETCH_ASSOC);
 // Desconectar do BD:
 Banco::desconectar();
 
+// Verificar se o produto a ser modificado, não pertence ao usuário logado:
+    if($_SESSION['infosusuario']['idUsuario'] != $infosProduto['idRespCadastro']){
+        echo "Este produto não te pertence!";
+        exit();
+    }
+
 //print_r($infosProduto);
 ?>
 
@@ -63,8 +69,8 @@ Banco::desconectar();
                 -->
             <form enctype="multipart/form-data" method="POST" action="modificaProduto.php">
                 <div class="form-group">
-                    <label for="codBarras">Código de Barras:</label>
-                    <input type="text" name="codBarras" value="<?=$infosProduto['codbarras'] ?>" class="form-control" id="codBarras" placeholder="0000000000000" maxlength="13">
+                    <label for="codbarras">Código de Barras:</label>
+                    <input type="text" name="codbarras" value="<?=$infosProduto['codbarras'] ?>" class="form-control" id="codbarras" placeholder="0000000000000" maxlength="13">
                 </div>
                 <div class="form-group">
                     <label for="nome">Nome do Produto:</label>
@@ -72,18 +78,23 @@ Banco::desconectar();
                 </div>        
                 <div class="form-group">
                     <label for="preco">Preço:</label>
-                    <input type="number" step="0.01" value="" name="preco" class="form-control" id="preco" placeholder="5.99">
+                    <input type="number" step="0.01" value="<?=$infosProduto['preco'] ?>" name="preco" class="form-control" id="preco" placeholder="5.99">
                 </div>
                 <div class="form-group">
                     <label for="qtdEstoque">Qtd. Estoque:</label>
-                    <input type="number" name="qtdEstoque" value="" class="form-control" id="qtdEstoque" placeholder="55">
+                    <input type="number" name="estoque" value="<?=$infosProduto['estoque'] ?>" class="form-control" id="estoque" placeholder="55">
                 </div>
                 <div class="form-group">
                     <label for="categoria">Categoria:</label>
-                    <select class="form-control" name="categoria" id="categoria">
+                    <select class="form-control" name="idCategoria" id="idCategoria">
                             <?php
                                 foreach($categoriasBD as $categoria){
-                                    echo '<option value="'.$categoria['id'].'">'.$categoria['nome'].'</option>';
+                                    if($infosProduto["idCategoria"] == $categoria['id']){
+                                        echo '<option value="'.$categoria['id'].'" SELECTED>'.$categoria['nome'].'</option>';   
+                                    }else{
+                                        echo '<option value="'.$categoria['id'].'">'.$categoria['nome'].'</option>';
+                                    }
+                                    
                                 }
 
                             ?>
@@ -99,7 +110,7 @@ Banco::desconectar();
                 -->
                 <input type="hidden" id="idProduto" name="idProduto" value="<?=$infosProduto['codbarras'] ?>">
 
-            <button type="submit" class="btn btn-success btn-lg btn-block">EDITAR</button>  
+            <button type="submit" class="btn btn-success btn-lg btn-block">ATUALIZAR</button>  
       </form>  
             </div>
             <div class="col-3">
