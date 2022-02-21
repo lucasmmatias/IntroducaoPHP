@@ -12,7 +12,7 @@ require '../db/banco.php';
 //Conectar com o banco:
 $pdo = Banco::conectar();
 // String com a query do banco:
-$comandoSql = 'SELECT codbarras AS cb, foto, nome, preco, estoque, idCategoria AS Categoria FROM produtos ORDER BY dataCadastro DESC';
+$comandoSql = 'SELECT * FROM viewprodutos ORDER BY dataCadastro DESC';
 // Atribuição do resultado da consulta no array $resultadoConsulta:
 $resultadoConsulta = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
 
@@ -85,13 +85,13 @@ Banco::desconectar();
                   <?php
                     foreach($resultadoConsulta as $linha){
                         echo '<tr>';
-                        echo '<td>'.$linha['cb'].'</td>';
+                        echo '<td>'.$linha['codbarras'].'</td>';
                         echo '<td><img class="imagem" src="'.$linha['foto'].'"/></td>';
                         echo '<td>'.$linha['nome'].'</td>';
                         echo '<td>'.$linha['preco'].'</td>';
                         echo '<td>'.$linha['estoque'].'</td>';
-                        echo '<td>'.$linha['Categoria'].'</td>';
-                        echo '<td><a href="apagar.php?id='.$linha['cb'].'">APAGAR</a> | <a href="editar.php?id='.$linha['cb'].'">EDITAR</a></td>';
+                        echo '<td>'.$linha['nomeCategoria'].'</td>';
+                        echo '<td><a href="apagar.php?id='.$linha['codbarras'].'">APAGAR</a> | <a href="editar.php?id='.$linha['codbarras'].'">EDITAR</a></td>';
                         echo '</tr>';
                     }
 
