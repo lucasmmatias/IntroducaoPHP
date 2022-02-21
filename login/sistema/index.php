@@ -12,9 +12,13 @@ require '../db/banco.php';
 //Conectar com o banco:
 $pdo = Banco::conectar();
 // String com a query do banco:
-$comandoSql = 'SELECT * FROM viewprodutos ORDER BY dataCadastro DESC';
+$comandoSql = 'SELECT * FROM viewprodutos WHERE idRespCadastro = ? ORDER BY dataCadastro DESC';
 // Atribuição do resultado da consulta no array $resultadoConsulta:
-$resultadoConsulta = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
+//$resultadoConsulta = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
+$q = $pdo->prepare($comandoSql);
+$q->execute(array($_SESSION['infosusuario']['idUsuario']));
+// Resultado do BD:
+$resultadoConsulta = $q->fetchAll(PDO::FETCH_ASSOC);
 
 // Comandos para puxar as categorias:
 $comandoSql = 'SELECT * FROM categorias ORDER BY nome';
