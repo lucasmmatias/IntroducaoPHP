@@ -1,3 +1,11 @@
+<?php
+$mensagens = ["Houve um problema com seu cadastro", 
+"Cadastro Realizado com sucesso.", 
+"A confirmação de senha não confere.",
+"Você saiu do sistema."];
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -123,11 +131,22 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+        .mensagem{
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
  
 <body>
     <div class="login-page">
+        <?php
+        if(isset($_GET['msg'])){
+            echo '<p class="mensagem">'.$mensagens[$_GET['msg']].'</p>';
+        }
+
+        ?>
         <div class="form">
             <form class="register-form" action="registrar.php" method="POST">
                 <input type="text" name="cadNome" placeholder="Nome Completo" />

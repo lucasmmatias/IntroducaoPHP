@@ -53,6 +53,6 @@ $q->execute(array($codbarras, $nome, $preco, $qtdEstoque, $categoria, $idResp, $
 Banco::desconectar();
 
 // Devolver o usuário para tela de administração:
-header("Location: index.php?msg=2");
+header("Location: index.php?msg=1");
 
 ?>

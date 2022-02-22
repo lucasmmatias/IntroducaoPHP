@@ -6,6 +6,6 @@
     setcookie(session_name(),'',0,'/');
     //session_regenerate_id(true);
     // Redirecionar a pessoa de volta à tela de login:
-    header("Location: ../index.php");
+    header("Location: ../index.php?msg=3");
 
 ?>

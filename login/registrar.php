@@ -20,10 +20,10 @@ if(!isset($_POST['cadNome']) && !isset($_POST['cadUsername']) && !isset($_POST['
         Banco::desconectar();
 
         // Devolver o usuário para tela de login:
-        header("Location: index.php?sucesso=1");
+        header("Location: index.php?msg=1");
     }else{
         // Devolver o jovem pra tela de login:
-        header("Location: index.php");
+        header("Location: index.php?msg=2");
     }
     
 

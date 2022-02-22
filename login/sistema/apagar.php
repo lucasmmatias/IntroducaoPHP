@@ -30,7 +30,7 @@ if(!isset($_SESSION['infosusuario'])){
             $q->execute(array($item));
             Banco::desconectar();
             // Redirecionar de volta ao painel:
-            header("Location: index.php?msg=1");
+            header("Location: index.php?msg=0");
         }else{
             Banco::desconectar();
             echo "Este produto não te pertence!";
