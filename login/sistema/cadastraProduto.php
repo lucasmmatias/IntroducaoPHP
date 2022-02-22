@@ -17,10 +17,33 @@ include('../db/banco.php');
 // Definir fuso horário:
 date_default_timezone_set('America/Sao_Paulo');
 
-$codbarras = $_POST['codBarras'];
-$nome = $_POST['nome'];
-$preco = $_POST['preco'];
-$qtdEstoque = $_POST['qtdEstoque'];
+// Verificar se nome e/ou código de barras não está vazios:
+if($_POST['codBarras'] != "" && $_POST['nome'] != "" && strlen($_POST['codBarras']) == 5){
+    $codbarras = $_POST['codBarras'];
+    $nome = $_POST['nome'];
+}else{
+    header("Location: index.php?msg=3");
+    exit();
+}
+
+
+// Verificar se está chegando um valor inteiro/float pelo post
+if(intval($_POST['preco']) != 0){
+    $preco = $_POST['preco'];
+}else{
+    header("Location: index.php?msg=3");
+    exit();
+}
+
+// Verificar se está chegando um valor inteiro pelo post
+if(floatval($_POST['qtdEstoque']) != 0){
+    $qtdEstoque = $_POST['qtdEstoque'];
+}else{
+    header("Location: index.php?msg=3");
+    exit();
+}
+
+
 $categoria = $_POST['categoria'];
 // Obter o ID do usuário pela sessão atual:
 $idResp = $_SESSION['infosusuario']['idUsuario'];
@@ -44,12 +67,24 @@ else{
 }
 
 // Caso a foto não esteja definida, setar para fotos/semfoto.jpg
+try{
+    $pdo = Banco::conectar();
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "INSERT INTO produtos (codbarras, nome, preco, estoque, idCategoria, idRespCadastro, foto) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $q = $pdo->prepare($sql);
+    $q->execute(array($codbarras, $nome, $preco, $qtdEstoque, $categoria, $idResp, $foto));
+}catch(PDOException $e){
+    if($e->getCode() == 23000){
+        header("Location: index.php?msg=4");
+        Banco::desconectar();
+        exit();
+    }else{
+        header("Location: index.php?msg=3");
+        Banco::desconectar();
+        exit();
+    }
+}
 
-$pdo = Banco::conectar();
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$sql = "INSERT INTO produtos (codbarras, nome, preco, estoque, idCategoria, idRespCadastro, foto) VALUES (?, ?, ?, ?, ?, ?, ?)";
-$q = $pdo->prepare($sql);
-$q->execute(array($codbarras, $nome, $preco, $qtdEstoque, $categoria, $idResp, $foto));
 Banco::desconectar();
 
 // Devolver o usuário para tela de administração:

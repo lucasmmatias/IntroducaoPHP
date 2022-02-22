@@ -2,7 +2,9 @@
 // Array de mensagens:
 $mensagens = ["Item apagado com sucesso!",
                 "Item cadastrado com sucesso!",
-                "Item editado com sucesso!"];
+                "Item editado com sucesso!",
+                "Houve um erro ao procesar o pedido.",
+                "Código de barras duplicado."];
 
 
 session_start();

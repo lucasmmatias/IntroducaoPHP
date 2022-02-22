@@ -2,7 +2,8 @@
 $mensagens = ["Houve um problema com seu cadastro", 
 "Cadastro Realizado com sucesso.", 
 "A confirmação de senha não confere.",
-"Você saiu do sistema."];
+"Você saiu do sistema.",
+"Usuário e/ou senha inválidos."];
 
 ?>
 
