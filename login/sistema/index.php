@@ -213,8 +213,13 @@ Banco::desconectar();
         <?php
                 // Verificar se o msg está vindo pelo get:
                 if (isset($_GET['msg'])) {
-                    // Mostrar o sweetalert
-                    echo 'swal("OK!", "'.$mensagens[$_GET['msg']].'", "success");';
+                    if($_GET['msg']<=2){
+                        // Mostrar o sweetalert
+                        echo 'swal("OK!", "'.$mensagens[$_GET['msg']].'", "success");';
+                    }else{
+                        // Mostrar o sweetalert
+                        echo 'swal("Atenção!", "'.$mensagens[$_GET['msg']].'", "warning");';
+                    }
                 }
                 ?>
     </script>
