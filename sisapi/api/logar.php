@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_WARNING); 
 // Importar o arquivo banco.php:
 include('db/banco.php');
 // Inicar a sessão:
@@ -47,7 +48,7 @@ if(!isset($_POST['username']) && !isset($_POST['password'])){
                 $status["status"] = 1;
                 echo json_encode($status);
             }else{
-                http_response_code(400);
+                http_response_code(200);
                 header('Content-Type: application/json; charset=utf-8');
                 $status["mensagem"] = "Usuário ou senha inválidos.";
                 echo json_encode($status);

@@ -146,9 +146,9 @@
                 <p class="message">Já possui conta? <a href="#">Entrar</a></p>
             </form>
             <form class="login-form">
-                <input type="text" placeholder="Username" name="username" />
-                <input type="password" placeholder="Senha" name="password" />
-                <button>entrar</button>
+                <input type="text" placeholder="Username" id="username" name="username" />
+                <input type="password" placeholder="Senha" id="password" name="password" />
+                <button onclick="logar()" type="button">entrar</button>
                 <p class="message">Ainda não tem conta? <a href="#">Efetuar cadastro.</a></p>
             </form>
         </div>
@@ -181,9 +181,28 @@
                     height: "toggle",
                     opacity: "toggle"
                 }, "slow");
+            }else{
+                swal("Erro!", data.mensagem, 'warning');
             }
         });
     }
+
+    // Função para efetuar o login:
+    function logar(){
+        $.post("api/logar.php", {
+            username: username.value,
+            password: password.value
+        }).done(function(data) {
+            // Redirecionar para a página do sistema:
+            if(data.status == 1){
+                location.href = "sistema/";
+            }else{
+                swal("Erro!", data.mensagem, 'warning');
+            }
+            
+        }); 
+    }
+
 </script>
 
 </html>

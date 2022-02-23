@@ -31,7 +31,7 @@ if(!isset($_POST['cadNome']) && !isset($_POST['cadUsername']) && !isset($_POST['
         echo json_encode($status);
     }else{
         // Retornar json com erro:
-        http_response_code(400);
+        http_response_code(200);
         header('Content-Type: application/json; charset=utf-8');
         $status["mensagem"] = "As senhas não conferem.";
         echo json_encode($status);
