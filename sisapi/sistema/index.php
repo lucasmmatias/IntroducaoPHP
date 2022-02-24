@@ -98,37 +98,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form enctype="multipart/form-data" method="POST" action="cadastraProduto.php">
+                    <form id="formCadastroProdutos">
                         <div class="form-group">
                             <label for="codBarras">Código de Barras:</label>
-                            <input type="text" name="codBarras" class="form-control" id="codBarras" placeholder="00000" maxlength="5">
+                            <input type="text" id="codBarras" name="codBarras" class="form-control" id="codBarras" placeholder="00000" maxlength="5">
                         </div>
                         <div class="form-group">
                             <label for="nome">Nome do Produto:</label>
-                            <input type="text" name="nome" class="form-control" id="nome" placeholder="Desinfetante Mr Músculos 5L">
+                            <input type="text" id="nome" name="nome" class="form-control" id="nome" placeholder="Desinfetante Mr Músculos 5L">
                         </div>
                         <div class="form-group">
                             <label for="preco">Preço:</label>
-                            <input type="number" step="0.01" name="preco" class="form-control" id="preco" placeholder="5.99">
+                            <input type="number" id="preco" step="0.01" name="preco" class="form-control" id="preco" placeholder="5.99">
                         </div>
                         <div class="form-group">
                             <label for="qtdEstoque">Qtd. Estoque:</label>
-                            <input type="number" name="qtdEstoque" class="form-control" id="qtdEstoque" placeholder="55">
+                            <input type="number" id="qtdEstoque" name="qtdEstoque" class="form-control" id="qtdEstoque" placeholder="55">
                         </div>
                         <div class="form-group">
                             <label for="categoria">Categoria:</label>
-                            <select class="form-control" name="categoria" id="categoria">
+                            <select class="form-control" id="categoria" name="categoria" id="categoria">
 
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="foto">Foto do Produto:</label>
-                            <input type="file" name="foto" class="form-control-file" id="foto">
-                        </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">CADASTRAR</button>
+                    <button onclick="cadastrarProduto()" type="button" class="btn btn-primary">CADASTRAR</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     </form>
                 </div>
@@ -143,4 +138,5 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="funcoes.js"></script>
 </body>
+
 </html>
