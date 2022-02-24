@@ -1,41 +1,25 @@
 <?php
-// Array de mensagens:
-$mensagens = [
-    "Item apagado com sucesso!",
-    "Item cadastrado com sucesso!",
-    "Item editado com sucesso!",
-    "Houve um erro ao procesar o pedido.",
-    "Código de barras duplicado."
-];
+// APAGAR POSTERIORMENTE:
+// // Importar o banco.php
+// require '../db/banco.php';
 
+// //Conectar com o banco:
+// $pdo = Banco::conectar();
+// // String com a query do banco:
+// $comandoSql = 'SELECT * FROM viewprodutos WHERE idRespCadastro = ? ORDER BY dataCadastro DESC';
+// // Atribuição do resultado da consulta no array $resultadoConsulta:
+// //$resultadoConsulta = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
+// $q = $pdo->prepare($comandoSql);
+// $q->execute(array($_SESSION['infosusuario']['idUsuario']));
+// // Resultado do BD:
+// $resultadoConsulta = $q->fetchAll(PDO::FETCH_ASSOC);
 
-session_start();
-// Verificar se a pessoa não possui a sessão:
-if (!isset($_SESSION['infosusuario'])) {
-    // Redirecionar de volta à tela de login:
-    header('Location: ../index.php');
-}
+// // Comandos para puxar as categorias:
+// $comandoSql = 'SELECT * FROM categorias ORDER BY nome';
+// $resultadoCategorias = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
+// //print_r($resultadoCategorias);
 
-// Importar o banco.php
-require '../db/banco.php';
-
-//Conectar com o banco:
-$pdo = Banco::conectar();
-// String com a query do banco:
-$comandoSql = 'SELECT * FROM viewprodutos WHERE idRespCadastro = ? ORDER BY dataCadastro DESC';
-// Atribuição do resultado da consulta no array $resultadoConsulta:
-//$resultadoConsulta = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
-$q = $pdo->prepare($comandoSql);
-$q->execute(array($_SESSION['infosusuario']['idUsuario']));
-// Resultado do BD:
-$resultadoConsulta = $q->fetchAll(PDO::FETCH_ASSOC);
-
-// Comandos para puxar as categorias:
-$comandoSql = 'SELECT * FROM categorias ORDER BY nome';
-$resultadoCategorias = $pdo->query($comandoSql)->fetchAll(PDO::FETCH_ASSOC);
-//print_r($resultadoCategorias);
-
-Banco::desconectar();
+// Banco::desconectar();
 
 
 
@@ -69,25 +53,11 @@ Banco::desconectar();
         </nav>
         <div class="row">
             <div class="col my-3 mx-4">
-                <div class="display-4">Bem-vindo(a) <?= $_SESSION['infosusuario']['nomeCompleto']; ?></div>
+                <div class="display-4">Bem-vindo(a) <span id="nomeCompleto">%nomeCompleto%</span></div>
             </div>
         </div>
         <div class="row">
             <div class="col-8">
-                <?php
-                // // Verificar se o msg está vindo pelo get:
-                // if (isset($_GET['msg'])) {
-                // echo '<script>swal("OK!", "'.$mensagens[$_GET['msg']].'", "success");</script>';
-                //     // Mostrar a mensagem de acordo com o índice do array:
-                // //     echo '<div class="alert alert-success" role="alert">
-                // //     ' . $mensagens[$_GET['msg']] . '
-                  
-                // //     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                // //     <span aria-hidden="true">&times;</span>
-                // //   </button>
-                // //   </div>';
-                // }
-                ?>
             </div>
             <div class="col-4">
                 <button type="button" data-toggle="modal" data-target="#modalCadastro" class="btn btn-success btn-lg btn-block">Cadastrar Produto</button>
@@ -110,21 +80,8 @@ Banco::desconectar();
                         </tr>
                     </thead>
                     <!-- Corpo (Conteúdo) da Tabela -->
-                    <tbody>
-                        <?php
-                        foreach ($resultadoConsulta as $linha) {
-                            echo '<tr>';
-                            echo '<td>' . $linha['codbarras'] . '</td>';
-                            echo '<td><img class="imagem" src="' . $linha['foto'] . '"/></td>';
-                            echo '<td>' . $linha['nome'] . '</td>';
-                            echo '<td>' . $linha['preco'] . '</td>';
-                            echo '<td>' . $linha['estoque'] . '</td>';
-                            echo '<td>' . $linha['nomeCategoria'] . '</td>';
-                            echo '<td><a href="#" onclick="confirma(' . $linha['codbarras'] . ', \'' . $linha['nome'] . '\')">APAGAR</a> | <a href="editar.php?id=' . $linha['codbarras'] . '">EDITAR</a></td>';
-                            echo '</tr>';
-                        }
+                    <tbody id="corpoTabela">
 
-                        ?>
                     </tbody>
                 </table>
             </div>
@@ -161,12 +118,7 @@ Banco::desconectar();
                         <div class="form-group">
                             <label for="categoria">Categoria:</label>
                             <select class="form-control" name="categoria" id="categoria">
-                                <?php
-                                foreach ($resultadoCategorias as $opcao) {
-                                    echo "<option value='" . $opcao['id'] . "'>" . $opcao['nome'] . "</option>";
-                                }
 
-                                ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -185,45 +137,10 @@ Banco::desconectar();
     </div>
     <!-- JavaScript (Opcional) -->
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        function confirma(codbarras, nome) {
-            // if(confirm("Deseja realmente apagar o produto "+nome+"?")){
-            //     // Redirecionar para a apagar.php:
-            //     location.href = "apagar.php?id="+codbarras;
-            // }
-            swal({
-                    title: "Atenção!",
-                    text: "Tem certeza que deseja remover "+nome+" da lista de produtos?",
-                    icon: "warning",
-                    buttons: ["NÃO", "REMOVER"],
-                    dangerMode: true,
-                })
-                .then((resposta) => {
-                    if (resposta) {
-                        location.href = "apagar.php?id="+codbarras;
-                    } else {
-                        swal("Seu produto está a salvo!");
-                    }
-                });
-        }
-        <?php
-                // Verificar se o msg está vindo pelo get:
-                if (isset($_GET['msg'])) {
-                    if($_GET['msg']<=2){
-                        // Mostrar o sweetalert
-                        echo 'swal("OK!", "'.$mensagens[$_GET['msg']].'", "success");';
-                    }else{
-                        // Mostrar o sweetalert
-                        echo 'swal("Atenção!", "'.$mensagens[$_GET['msg']].'", "warning");';
-                    }
-                }
-                ?>
-    </script>
-
+    <script src="funcoes.js"></script>
 </body>
-
 </html>
