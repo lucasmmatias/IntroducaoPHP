@@ -130,6 +130,51 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- Modal editar -->
+    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Produto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarProdutos">
+                        <div class="form-group">
+                            <label for="codBarras">Código de Barras:</label>
+                            <input type="text" disabled id="codBarrasEdi" name="codBarrasEdi" class="form-control" id="codBarras" placeholder="00000" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome">Nome do Produto:</label>
+                            <input type="text" id="nomeEdi" name="nomeEdi" class="form-control" id="nome" placeholder="Desinfetante Mr Músculos 5L">
+                        </div>
+                        <div class="form-group">
+                            <label for="preco">Preço:</label>
+                            <input type="number" id="precoEdi" step="0.01" name="precoEdi" class="form-control" id="preco" placeholder="5.99">
+                        </div>
+                        <div class="form-group">
+                            <label for="qtdEstoque">Qtd. Estoque:</label>
+                            <input type="number" id="qtdEstoqueEdi" name="qtdEstoqueEdi" class="form-control" id="qtdEstoque" placeholder="55">
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoria:</label>
+                            <select class="form-control" id="categoriaEdi" name="categoriaEdi" id="categoria">
+                            </select>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="editarProduto()" type="button" class="btn btn-primary">Editar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- JavaScript (Opcional) -->
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

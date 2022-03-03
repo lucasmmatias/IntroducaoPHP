@@ -63,6 +63,41 @@ function cadastrarProduto() {
 function apagarTabela() {
     $("#corpoTabela").html("");
 }
+
+function abrirEditar(codbarras, nome, preco, estoque){
+    // Abrir a modalEditar
+    $('#modalEditar').modal('show');
+    // Preencher os campos do modal com as informações do produto selecionado:
+    codBarrasEdi.value = codbarras;
+    nomeEdi.value = nome;
+    precoEdi.value = preco;
+    qtdEstoqueEdi.value = estoque;
+}
+
+function editarProduto(){
+    $.post("../api/modificaProduto.php", {
+        idProduto: codBarrasEdi.value,
+        nome: nomeEdi.value,
+        preco: precoEdi.value,
+        estoque: qtdEstoqueEdi.value,
+        idCategoria: categoriaEdi.value
+    }).done(function (data) {
+        // Redirecionar para a página do sistema:
+        if (data.status == 1) {
+            swal("Sucesso!", data.mensagem, 'success');
+            // Esconder a modal:
+            $('#modalEditar').modal('hide');
+            // Limpar a tabela:
+            apagarTabela();
+            // Atualizar com novas informações:
+            atualizarProdutos();
+        } else {
+            swal("Erro!", data.mensagem, 'warning');
+        }
+
+    });
+}
+
 // Função para puxar a lista de produtos:
 function atualizarProdutos() {
     $.getJSON("../api/listarProdutos.php").done(function (data) {
@@ -87,7 +122,7 @@ function atualizarProdutos() {
                 $("#corpoTabela").append("<td>" + produto.preco + "</td>");
                 $("#corpoTabela").append("<td>" + produto.estoque + "</td>");
                 $("#corpoTabela").append("<td>" + produto.nomeCategoria + "</td>");
-                $("#corpoTabela").append("<td><a href=\"#\" onclick=\"confirma(" + produto.codbarras + ",'" + produto.nome + "')\">APAGAR</a> | Editar</td>");
+                $("#corpoTabela").append("<td><a href=\"#\" onclick=\"confirma(" + produto.codbarras + ",'" + produto.nome + "')\">APAGAR</a> | <a href=\"#\" onclick=\"abrirEditar('"+produto.codbarras+"','"+produto.nome+"','"+produto.preco+"','"+produto.estoque+"')\">EDITAR</a></td>");
                 $("#corpoTabela").append("</tr>");
             });
         }
@@ -107,6 +142,7 @@ $(document).ready(function () {
     $.getJSON("../api/listarCategorias.php").done(function (data) {
         data.dados.forEach(function (categ) {
             $("#categoria").prepend("<option value=\"" + categ.id + "\">" + categ.nome + "</option>");
+            $("#categoriaEdi").prepend("<option value=\"" + categ.id + "\">" + categ.nome + "</option>");
         });
     });
 });
