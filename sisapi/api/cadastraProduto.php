@@ -58,6 +58,7 @@ try {
     $sql = "INSERT INTO produtos (codbarras, nome, preco, estoque, idCategoria, idRespCadastro, foto) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $q = $pdo->prepare($sql);
     $q->execute(array($codbarras, $nome, $preco, $qtdEstoque, $categoria, $idResp, $foto));
+    
 } catch (PDOException $e) {
     Banco::desconectar();
     if ($e->getCode() == 23000) {
@@ -73,3 +74,4 @@ Banco::desconectar();
 
 // Devolver o usuário para tela de administração:
 header("Location: index.php?msg=1");
+?>

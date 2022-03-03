@@ -1,8 +1,4 @@
 function confirma(codbarras, nome) {
-    // if(confirm("Deseja realmente apagar o produto "+nome+"?")){
-    //     // Redirecionar para a apagar.php:
-    //     location.href = "apagar.php?id="+codbarras;
-    // }
     swal({
         title: "Atenção!",
         text: "Tem certeza que deseja remover " + nome + " da lista de produtos?",
@@ -10,9 +6,27 @@ function confirma(codbarras, nome) {
         buttons: ["NÃO", "REMOVER"],
         dangerMode: true,
     })
+    /* 
+    Função atualizada 03/03 - Ajustar a apagar.php para 
+    receber informações por POST e retornar a situação da remoção
+    */
         .then((resposta) => {
             if (resposta) {
-                location.href = "apagar.php?id=" + codbarras;
+                $.post("../api/apagar.php", {
+                    codBarras: codbarras
+                }).done(function (data) {
+                    // Redirecionar para a página do sistema:
+                    if (data.status == 1) {
+                        swal("Sucesso!", data.mensagem, 'success');
+                        // Limpar a tabela:
+                        apagarTabela();
+                        // Atualizar com novas informações:
+                        atualizarProdutos();
+                    } else {
+                        swal("Erro!", data.mensagem, 'warning');
+                    }
+
+                });
             } else {
                 swal("Seu produto está a salvo!");
             }
